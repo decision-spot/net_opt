@@ -1,0 +1,16 @@
+*.bak
+*.idea/
+*__pycache__/
+*output/
+*.lp
+*.log
+*.sol
+*log_files/
+*.coverage
+*htmlcov/
+*.pdf
+*.html
+*.zip
+
+# Jupyter Notebook
+.ipynb_checkpoints
