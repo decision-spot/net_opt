@@ -3,6 +3,7 @@
 *__pycache__/
 *output/
 *.lp
+*.mps
 *.log
 *.sol
 *log_files/
