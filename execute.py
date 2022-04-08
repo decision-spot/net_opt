@@ -32,7 +32,7 @@ def plot_input_map(plant_df, cust_df):
                  open_map_in_cell=open_map_in_cell)
 
 
-def run_network_optimization(plant_df, cust_df):
+def run_network_optimization(plant_df, cust_df, auto_open_map=True):
     """This is mainly a P-median problem."""
     # region Set Up Data
     dist = get_distance(plant_df, cust_df)
@@ -85,8 +85,8 @@ def run_network_optimization(plant_df, cust_df):
     # # Case 2: minimize total transportation cost
     # objective = gp.quicksum((dist.loc[i, j]['Cost'] * y[i, j]) for (i, j) in ij_set)
     mdl.setObjective(objective, GRB.MINIMIZE)
-    mdl.setParam(GRB.Param.OutputFlag, 1)
-    # mdl.write(mdl.ModelName + '.lp')
+    mdl.setParam(GRB.Param.OutputFlag, 1)  # enables or disables solver output
+    mdl.write(mdl.ModelName + '.lp')  # writing the optimization model to a '.lp' file
     mdl.optimize()
     status = mdl.status
     if status in (GRB.INF_OR_UNBD, GRB.INFEASIBLE, GRB.UNBOUNDED):
@@ -101,7 +101,8 @@ def run_network_optimization(plant_df, cust_df):
 
     lanes = generate_outputs(plant_df, cust_df, dist, dmd, total_weighted_dist, x, y)
     # Plot output map
-    plot_network(lanes, auto_open_map=True, title='Solution Map', open_map_in_cell=open_map_in_cell)
+    plot_network(lanes, auto_open_map=auto_open_map, title='Solution Map',
+                 open_map_in_cell=open_map_in_cell)
 
 
 def get_distance(orig_df, dest_df):
@@ -160,6 +161,7 @@ if __name__ == '__main__':
     cost_per_mile = 2
     min_cost = 450
     open_map_in_cell = False  # This is for Jupyter Notebook. The map is saved in an HTML file anyway
+    auto_open_map = True  # Whether to open the output map automatically in the browser.
     plant_df, cust_df = prep_data()
     plot_input_map(plant_df, cust_df)
-    run_network_optimization(plant_df, cust_df)
+    run_network_optimization(plant_df, cust_df, auto_open_map)
