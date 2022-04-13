@@ -15,7 +15,7 @@ Two different objective functions can be used:
 - Minimizing total transportation cost
 
 ## Repo Guide
-- You can find all you need in the [Network Optimization](Network%20Optimization.ipynb) notebook.
+- You can find all you need in the [network_optimization](network_optimization.ipynb) notebook.
 - The python files (`plots.py` and `utils.py`) are helper functions.
 - The notebook has a few parameters that one can change to see their effects; such as
 maximum number of warehouses (or plant locations) and values used for cost.
@@ -30,6 +30,13 @@ Although a full list of packages can be found in the [requirements.txt](requirem
 for those who wish to create an identical virtual environment (Python 3.9) to run the code.  
 - An input map of the locations and an output map of the final assignment will be plotted.
 By default, they are saved in your directory as html files.
+
+## Google Colab
+If you like to run the notebook in Google Colab, follow these steps:
+- Go to https://colab.research.google.com/ (you must sign in with your Google account)
+- Click on the GitHub tab, and in the search box, enter this repo's URL (https://github.com/decision-spot/net_opt).
+- You should see the `network_optimization.ipynb`.
+- When you open the notebook, there will be further instructions under "For Google Colab Only" header. 
 
 ## License Requirement
 The problem is modeled using Gurobi Python API. So, a Gurobi license is required to run this model.
