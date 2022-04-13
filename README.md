@@ -35,3 +35,6 @@ By default, they are saved in your directory as html files.
 The problem is modeled using Gurobi Python API. So, a Gurobi license is required to run this model.
 If you don't have a license, you can request a free commercial evaluation license 
 or a free academic license [here](https://www.gurobi.com/downloads/).
+A smaller dataset is provided ([Small Sample Data.xlsx](Small%20Sample%20Data.xlsx))
+that can be used to run the model with gurobi restricted license (available via 
+`pip install gurobi` as shown in the notebook).

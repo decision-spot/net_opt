@@ -13,11 +13,11 @@ import gurobipy as gp
 from gurobipy import GRB
 
 from plots import plot_network
-from utils import load_raw_data, calculate_distance_haversine, prepare_location_dataframe
+from utils import calculate_distance_haversine, prepare_location_dataframe
 
 
-def prep_data():
-    input_df_dict = load_raw_data()
+def prep_data(file_name):
+    input_df_dict = pd.read_excel(file_name, sheet_name=None)
     cust_df = input_df_dict['Customers']
     plant_df = input_df_dict['Plants']
     cust_df.rename(columns={'ID': 'Customer ID', 'Name': 'Customer Name'}, inplace=True)
@@ -86,7 +86,7 @@ def run_network_optimization(plant_df, cust_df, auto_open_map=True):
     # objective = gp.quicksum((dist.loc[i, j]['Cost'] * y[i, j]) for (i, j) in ij_set)
     mdl.setObjective(objective, GRB.MINIMIZE)
     mdl.setParam(GRB.Param.OutputFlag, 1)  # enables or disables solver output
-    mdl.write(mdl.ModelName + '.lp')  # writing the optimization model to a '.lp' file
+    # mdl.write(mdl.ModelName + '.lp')  # writing the optimization model to a '.lp' file
     mdl.optimize()
     status = mdl.status
     if status in (GRB.INF_OR_UNBD, GRB.INFEASIBLE, GRB.UNBOUNDED):
@@ -162,6 +162,7 @@ if __name__ == '__main__':
     min_cost = 450
     open_map_in_cell = False  # This is for Jupyter Notebook. The map is saved in an HTML file anyway
     auto_open_map = True  # Whether to open the output map automatically in the browser.
-    plant_df, cust_df = prep_data()
+    file_name = 'Sample Data.xlsx'  # Two choices: 'Sample Data.xlsx' and 'Small Sample Data.xlsx'
+    plant_df, cust_df = prep_data(file_name)
     plot_input_map(plant_df, cust_df)
     run_network_optimization(plant_df, cust_df, auto_open_map)
