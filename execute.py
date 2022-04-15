@@ -40,11 +40,11 @@ def run_network_optimization(plant_df, cust_df, auto_open_map=True):
     dmd = cust_df.set_index(['Customer ID'])
 
     # Sets
-    plnt = plant_df['Plant ID'].unique()
-    cust = cust_df['Customer ID'].unique()
-    ij_set = set((i, j) for i in plnt for j in cust)
-    must_use_plants = plant_df.loc[plant_df['Must Use'], 'Plant ID'].to_list()
-    unavailable_plants = plant_df.loc[~plant_df['Can Use'], 'Plant ID'].to_list()
+    plnt = plant_df['Plant ID'].unique()  # I
+    cust = cust_df['Customer ID'].unique()  # J
+    ij_set = set((i, j) for i in plnt for j in cust)  # Pair of I,J. Created to avoid repetition in the code
+    must_use_plants = plant_df.loc[plant_df['Must Use'], 'Plant ID'].to_list()  # Forced locations or FI set
+    unavailable_plants = plant_df.loc[~plant_df['Can Use'], 'Plant ID'].to_list()  # Unavailable locations or UI set
     # endregion
 
     # region Optimization Model
@@ -69,20 +69,22 @@ def run_network_optimization(plant_df, cust_df, auto_open_map=True):
 
     # Extra
     # 4. Plants that we must use
-    # x_{i} = 1    for all i in F
+    # x_{i} = 1    for all i in FI
     mdl.addConstrs((x[i] == 1 for i in must_use_plants), 'must_use')
 
     # 5. Plants that we cannot use
-    # x_{i} = 0    for all i in U
+    # x_{i} = 0    for all i in UI
     mdl.addConstrs((x[i] == 0 for i in unavailable_plants), 'cant_use')
 
     # KPI
+    # sum_{ij} q_{j}*d_{ij}*y_{ij}
     total_weighted_dist = gp.quicksum(dist.loc[i, j]['Distance'] * dmd.loc[j]['Demand'] * y[i, j]
                                       for (i, j) in ij_set)
     # Objective function
     # Case 1: minimize total weighted distance
     objective = total_weighted_dist
     # # Case 2: minimize total transportation cost
+    # # sum_{ij} c_{ij}*y_{ij}
     # objective = gp.quicksum((dist.loc[i, j]['Cost'] * y[i, j]) for (i, j) in ij_set)
     mdl.setObjective(objective, GRB.MINIMIZE)
     mdl.setParam(GRB.Param.OutputFlag, 1)  # enables or disables solver output
@@ -157,9 +159,9 @@ def generate_outputs(plant_df, cust_df, dist, dmd, total_weighted_dist, x, y):
 if __name__ == '__main__':
     # ================== Set up data ==================
     # Params
-    max_plants = 3
-    cost_per_mile = 2
-    min_cost = 450
+    max_plants = 3  # P or max number of warehouses to open
+    cost_per_mile = 2  # It is used when transportation cost needs to be calculated
+    min_cost = 450  # It is used when transportation cost needs to be calculated
     open_map_in_cell = False  # This is for Jupyter Notebook. The map is saved in an HTML file anyway
     auto_open_map = True  # Whether to open the output map automatically in the browser.
     file_name = 'Sample Data.xlsx'  # Two choices: 'Sample Data.xlsx' and 'Small Sample Data.xlsx'
