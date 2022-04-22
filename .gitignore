@@ -9,7 +9,6 @@
 *log_files/
 *.coverage
 *htmlcov/
-*.pdf
 *.html
 *.zip
 
