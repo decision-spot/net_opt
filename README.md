@@ -24,12 +24,18 @@ for those who wish to have all the code in a `.py` file rather than a notebook.
 That means, you can ignore the notebook and use this file as your starting point, 
 running it in your favorite IDE or using command line. 
 - A sample of data to run the model is given in [Sample Data.xlsx](Sample%20Data.xlsx).
+A smaller version of that file is given in [Small Sample Data.xlsx](Small%20Sample%20Data.xlsx)
+for those without access to Gurobi license 
+(check out [License Requirement](#license-requirement) section for more info about the license).
 Note that the column names in this file should be respected as they are used in the code.
 - The main packages you need are `pandas`, `plotly`, and `gurobipy`. 
 Although a full list of packages can be found in the [requirements.txt](requirements.txt) 
 for those who wish to create an identical virtual environment (Python 3.9) to run the code.  
 - An input map of the locations and an output map of the final assignment will be plotted.
 By default, they are saved in your directory as html files.
+- This repo was part of a workshop at 2022 Open Data Science Conference (ODSC) in Boston, where
+we introduced data scientists to mathematical optimization and the reasons they should know about it.
+You can find the pdf of those slides in [odsc22_presentation](odsc22_presentation.pdf). 
 
 ## Google Colab
 If you like to run the notebook in Google Colab, follow these steps:
