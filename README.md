@@ -38,11 +38,19 @@ we introduced data scientists to mathematical optimization and the reasons they 
 You can find the pdf of those slides in [odsc22_presentation](odsc22_presentation.pdf). 
 
 ## Google Colab
-If you like to run the notebook in Google Colab, follow these steps:
-- Go to https://colab.research.google.com/ (you must sign in with your Google account)
+If you like to access the notebook in Google Colab, click on 
+[this link](https://colab.research.google.com/github/decision-spot/net_opt/blob/main/network_optimization.ipynb).
+When you open the notebook, there will be further instructions under "For Google Colab Only" section.
+
+Note that you must sign in with a Google account to be able to run the code in Colab.
+
+### What is Google Colab?
+Google Colab is a free, online Jupyter Notebook environment that allows you to 
+write and execute Python code through your browser.
+If you're curious to know the steps needed for loading a repo in Google Colab from scratch, here they are:
+- Go to https://colab.research.google.com/ (you must sign in with your Google account).
 - Click on the GitHub tab, and in the search box, enter this repo's URL (https://github.com/decision-spot/net_opt).
-- You should see the `network_optimization.ipynb`.
-- When you open the notebook, there will be further instructions under "For Google Colab Only" header. 
+- You should see the `network_optimization.ipynb`. Click it and it opens in a new tab.
 
 ## License Requirement
 The problem is modeled using Gurobi Python API. So, a Gurobi license is required to run this model.
